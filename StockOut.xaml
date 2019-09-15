@@ -1,0 +1,93 @@
+﻿<Page x:Class="PointOfSale.StockOut"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PointOfSale"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StockOut">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=" *"/>
+            <RowDefinition Height=" 0.5*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Name="SiteNav" Grid.Column="0">
+                <TextBlock Text="Navigate To:" HorizontalAlignment="Center"/>
+                <Button Content="Logout" Click="LogoutButtonclk"/>
+                <Button Content="Sell" Click="NavigateToSell"/>
+                <Button Content="Book In Stock" Click="NavigateToBookIn"/>
+
+            </StackPanel>
+            <TextBlock Grid.Column="1" Name= "UsernameBlock"  Height="40" Width="300" HorizontalAlignment="Center" FontSize="20" TextAlignment="Center" Margin="10"/>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Content="Go!" Width="80" Click="SearchButtonClick"/>
+                <TextBox Name="SearchBox" Text="Search..." Width="160" HorizontalContentAlignment="Center" MouseEnter="MouseEnterSeaerchBox" MouseLeave="MouseLeaveSearchBox"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Margin="2" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1" Content="Catagory" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <Label Grid.Column="2" Content="ID" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Label Grid.Column="3" Content="Name" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Label Grid.Column="4" Content="Price in $1000" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Label Grid.Column="5" Content="Qty To Sell" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Label Grid.Column="6" Content="In Stock" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        </Grid>
+
+        <ListBox Grid.Row="2" Margin="10" HorizontalContentAlignment="Stretch" x:Name="StockOutListBox" IsSynchronizedWithCurrentItem="True"  >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate x:Name="SIDataTemplate">
+                    <Grid Margin="2" Name="SIGrid">
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock  Grid.Column="0" Text= "{Binding PruductCatagory}" HorizontalAlignment="Left"/>
+                        <TextBlock  Grid.Column="1" Name="idBox" Text= "{Binding ProductID}" HorizontalAlignment="Center"/>
+                        <TextBlock  Grid.Column="2" Text="{Binding ProductName}" HorizontalAlignment="Center"/>
+                        <TextBlock  Grid.Column="3" Name="itemPrice" Text= "{Binding Price}" HorizontalAlignment="Center"/>
+                        <TextBox  Grid.Column="4" Name="QtySellBox" Text="0" HorizontalContentAlignment="Center" MouseEnter="MouseEnterQtyAddBox" MouseLeave="MouseLeaveQtyAddBox"/>
+                        <TextBlock  Grid.Column="5" Name="StockCount" Text= "{Binding qtyInStockChange}" HorizontalAlignment="Center"/>
+                        <Button Grid.Column="6" Name="BookInButton"  Content="Sell" Click="SellBtn"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+
+</Page>
